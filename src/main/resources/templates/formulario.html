@@ -3,9 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-
     <title>AlgaWorks</title>
-
     <link rel="stylesheet" th:href="@{/css/estilo.css}" />
   </head>
 
@@ -14,9 +12,7 @@
       <nav>
         <ul>
           <li><a th:href="@{/}"> AlgaWorks Contatos </a></li>
-
           <li><a th:href="@{/contatos}"> Listar </a></li>
-
           <li><a th:href="@{/contatos/novo}"> Novo </a></li>
         </ul>
       </nav>
@@ -24,44 +20,83 @@
 
     <main>
       <section>
-        <h1>Cadastro contatos</h1>
+        <h1 th:text="${contato.novo ? 'Novo Contato' : 'Editar Contato'}">Cadastro de Contato</h1>
       </section>
 
       <section>
-        <form
-          th:action="${contato.novo} ? @{/contatos} : @{/contatos/{contato}(contato=${contato.id})}"
-          th:object="${contato}"
-          th:method="${contato.novo} ? post : put"
-        >
-          <div th:if="${erros}">
+        <form th:action="${contato.novo} ? @{/contatos} : @{/contatos/{contato}(contato=${contato.id})}"
+              th:object="${contato}"
+              th:method="${contato.novo} ? post : put">
+          
+          <!-- Exibir erros de validação -->
+          <div th:if="${erros}" class="erros">
             <ul>
-              <li
-                th:each="erro : ${erros}"
-                th:text="${erro.defaultMessage}"
-              ></li>
+              <li th:each="erro : ${erros}" th:text="${erro.defaultMessage}"></li>
             </ul>
           </div>
 
+          <!-- ID (apenas para edição) -->
           <div th:if="${!contato.novo}">
-            <label>Código: </label>
-
-            <input th:field="*{id}" readonly="readonly" />
+            <label for="id">Código:</label>
+            <input id="id" th:field="*{id}" readonly="readonly" />
           </div>
 
+          <!-- Nome -->
           <div>
-            <label>Nome: </label>
-
-            <input th:field="*{nome}" />
+            <label for="nome">Nome: *</label>
+            <input id="nome" th:field="*{nome}" placeholder="Digite o nome completo" />
           </div>
 
+          <!-- Telefone -->
           <div>
-            <label>Telefone: </label>
-
-            <input th:field="*{telefone}" />
+            <label for="telefone">Telefone: *</label>
+            <input id="telefone" th:field="*{telefone}" placeholder="(11) 99999-9999" />
           </div>
 
+          <!-- Email -->
           <div>
-            <button>Salvar</button>
+            <label for="email">Email:</label>
+            <input id="email" th:field="*{email}" type="email" placeholder="exemplo@email.com" />
+          </div>
+
+          <!-- Endereço -->
+          <div>
+            <label for="endereco">Endereço:</label>
+            <textarea id="endereco" th:field="*{endereco}" placeholder="Digite o endereço completo"></textarea>
+          </div>
+
+          <!-- Data de Nascimento -->
+          <div>
+            <label for="dataNascimento">Data de Nascimento:</label>
+            <input id="dataNascimento" th:field="*{dataNascimento}" type="date" />
+          </div>
+
+          <!-- Categoria -->
+          <div>
+            <label for="categoria">Categoria:</label>
+            <select id="categoria" th:field="*{categoria}">
+              <option th:each="cat : ${categorias}" 
+                      th:value="${cat}" 
+                      th:text="${cat.toString()}"
+                      th:selected="${contato.categoria == cat}">
+              </option>
+            </select>
+          </div>
+
+          <!-- Favorito -->
+          <div class="checkbox-container">
+            <label for="favorito">
+              <input id="favorito" th:field="*{favorito}" type="checkbox" />
+              ⭐ Marcar como favorito
+            </label>
+          </div>
+
+          <!-- Botões -->
+          <div class="botoes">
+            <button type="submit" class="btn-salvar">
+              💾 <span th:text="${contato.novo ? 'Salvar' : 'Atualizar'}">Salvar</span>
+            </button>
+            <a th:href="@{/contatos}" class="btn-cancelar">❌ Cancelar</a>
           </div>
         </form>
       </section>
