@@ -22,12 +22,12 @@ public class ContatosControle {
 
     @GetMapping("/contatos")
     public ModelAndView listar(@RequestParam(required = false) String busca,
-                               @RequestParam(required = false) String categoria,
-                               @RequestParam(required = false) Boolean favorito) {
+            @RequestParam(required = false) String categoria,
+            @RequestParam(required = false) Boolean favorito) {
         ModelAndView mv = new ModelAndView("listar");
-        
+
         List<Contato> contatos;
-        
+
         if (busca != null && !busca.trim().isEmpty()) {
             // Busca por texto
             contatos = contatoService.buscarPorTexto(busca);
@@ -45,11 +45,11 @@ public class ContatosControle {
             // Lista todos
             contatos = contatoService.buscarTodos();
         }
-        
+
         mv.addObject("contatos", contatos);
         mv.addObject("categorias", contatoService.obterCategorias());
         mv.addObject("estatisticas", contatoService.obterEstatisticas());
-        
+
         return mv;
     }
 
@@ -64,13 +64,13 @@ public class ContatosControle {
     @PostMapping("/contatos")
     public ModelAndView salvar(@Valid Contato contato, BindingResult result) {
         ModelAndView mv = new ModelAndView("formulario");
-        
+
         if (result.hasErrors()) {
             mv.addObject("erros", result.getAllErrors());
             mv.addObject("categorias", contatoService.obterCategorias());
             return mv;
         }
-        
+
         contatoService.salvar(contato);
         mv.setViewName("redirect:/contatos");
         return mv;
@@ -79,10 +79,10 @@ public class ContatosControle {
     @GetMapping("/contatos/{id}")
     public ModelAndView editar(@PathVariable Long id) {
         ModelAndView mv = new ModelAndView("formulario");
-        
+
         Optional<Contato> contatoOpt = contatoService.buscarPorId(id);
         Contato contato = contatoOpt.orElse(new Contato());
-        
+
         mv.addObject("contato", contato);
         mv.addObject("categorias", contatoService.obterCategorias());
         return mv;
@@ -93,7 +93,7 @@ public class ContatosControle {
         if (result.hasErrors()) {
             return "redirect:/contatos/" + id;
         }
-        
+
         contatoService.atualizar(id, contato);
         return "redirect:/contatos";
     }
@@ -113,10 +113,10 @@ public class ContatosControle {
     @GetMapping("/contatos/{id}/detalhes")
     public ModelAndView detalhes(@PathVariable Long id) {
         ModelAndView mv = new ModelAndView("detalhes");
-        
+
         Optional<Contato> contatoOpt = contatoService.buscarPorId(id);
         mv.addObject("contato", contatoOpt.orElse(null));
-        
+
         return mv;
     }
 
@@ -133,15 +133,15 @@ public class ContatosControle {
     @GetMapping("/contatos/categoria/{categoria}")
     public ModelAndView porCategoria(@PathVariable String categoria) {
         ModelAndView mv = new ModelAndView("listar");
-        
+
         Categoria cat = Categoria.fromDescricao(categoria);
         List<Contato> contatos = contatoService.buscarPorCategoria(cat);
-        
+
         mv.addObject("contatos", contatos);
         mv.addObject("categorias", contatoService.obterCategorias());
         mv.addObject("categoriaSelecionada", cat);
         mv.addObject("estatisticas", contatoService.obterEstatisticas());
-        
+
         return mv;
     }
 }

@@ -89,7 +89,7 @@
                       th:method="post" style="display: inline;">
                   <button type="submit" th:class="${contato.favorito ? 'btn-favorito-remover' : 'btn-favorito-adicionar'}"
                           th:title="${contato.favorito ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}">
-                    <span th:text="${contato.favorito ? '💔' : '❤️'}"></span>
+                    <span th:text="${contato.favorito ? '💔 Remover' : '❤️ Favoritar'}"></span>
                   </button>
                 </form>
                 
