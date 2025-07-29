@@ -1,16 +1,28 @@
 package com.algaworks;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+
+@Entity
 public class Contato {
-    private String id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @NotBlank(message = "Nome é obrigatório")
     private String nome;
+    @NotBlank(message = "Telefone é obrigatório")
     private String telefone;
     private boolean novo;
 
     public Contato() {
-        // Construtor sem argumentos
+
     }
 
-    public Contato(String id, String nome, String telefone) {
+    public Contato(Long id, String nome, String telefone) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
@@ -37,17 +49,15 @@ public class Contato {
         this.telefone = telefone;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
-
-
+    public void setId(Long id) {
         this.id = id;
     }
+
     public void setNovo(boolean novo) {
         this.novo = novo;
     }
-
 }

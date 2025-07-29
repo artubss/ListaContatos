@@ -1,19 +1,23 @@
 package com.algaworks;
 
-import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import jakarta.validation.Valid;
 
 @Controller
 public class ContatosControle {	
 	
 	private static final ArrayList<Contato> LISTA_CONTATOS = new ArrayList<>();
-
+	
 	static {
 		LISTA_CONTATOS.add(new Contato("1", "João da Silva", "1199999-9999"));
 		LISTA_CONTATOS.add(new Contato("2", "Maria Oliveira", "1299999-9999"));
@@ -46,9 +50,18 @@ public class ContatosControle {
 	}
 
 	@PostMapping("/contatos")
-	public String salvar(Contato contato) {
+	public ModelAndView salvar(@Valid Contato contato, BindingResult result) {
+		ModelAndView mv = new ModelAndView("formulario");
+		if (result.hasErrors()) {
+			mv.addObject("contato", contato);
+			mv.addObject(
+					"erros", result.getAllErrors()
+			);
+			return mv;
+		}
 		LISTA_CONTATOS.add(contato);
-		return "redirect:/contatos";
+		mv.setViewName("redirect:/contatos");
+		return mv;
 	}
 
 	@GetMapping("/contatos/{id}")
