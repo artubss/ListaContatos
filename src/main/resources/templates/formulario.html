@@ -31,12 +31,19 @@
           th:object="${contato}"
           th:method="${contato.novo} ? post : put"
         >
+          <!-- Exibir erros gerais -->
+          <div th:if="${erro}" class="erro-geral">
+            <p th:text="${erro}"></p>
+          </div>
+
           <!-- Exibir erros de validação -->
-          <div th:if="${erros}" class="erros">
+          <div th:if="${#fields.hasErrors('*')}" class="erros">
+            <h3>⚠️ Erros de Validação:</h3>
             <ul>
               <li
-                th:each="erro : ${erros}"
-                th:text="${erro.defaultMessage}"
+                th:each="erro : ${#fields.errors('*')}"
+                th:text="${erro}"
+                class="erro-item"
               ></li>
             </ul>
           </div>
@@ -48,60 +55,78 @@
           </div>
 
           <!-- Nome -->
-          <div>
+          <div th:class="${#fields.hasErrors('nome')} ? 'campo-erro' : ''">
             <label for="nome">Nome: *</label>
             <input
               id="nome"
               th:field="*{nome}"
-              placeholder="Digite o nome completo"
+              placeholder="Digite o nome completo (2-100 caracteres)"
+              th:class="${#fields.hasErrors('nome')} ? 'input-erro' : ''"
             />
+            <span th:if="${#fields.hasErrors('nome')}" class="erro-campo" 
+                  th:each="erro : ${#fields.errors('nome')}" th:text="${erro}"></span>
           </div>
 
           <!-- Telefone -->
-          <div>
+          <div th:class="${#fields.hasErrors('telefone')} ? 'campo-erro' : ''">
             <label for="telefone">Telefone: *</label>
             <input
               id="telefone"
               th:field="*{telefone}"
               placeholder="(11) 99999-9999"
+              th:class="${#fields.hasErrors('telefone')} ? 'input-erro' : ''"
             />
+            <span th:if="${#fields.hasErrors('telefone')}" class="erro-campo" 
+                  th:each="erro : ${#fields.errors('telefone')}" th:text="${erro}"></span>
           </div>
 
           <!-- Email -->
-          <div>
+          <div th:class="${#fields.hasErrors('email')} ? 'campo-erro' : ''">
             <label for="email">Email:</label>
             <input
               id="email"
               th:field="*{email}"
               type="email"
               placeholder="exemplo@email.com"
+              th:class="${#fields.hasErrors('email')} ? 'input-erro' : ''"
             />
+            <span th:if="${#fields.hasErrors('email')}" class="erro-campo" 
+                  th:each="erro : ${#fields.errors('email')}" th:text="${erro}"></span>
+            <small class="ajuda">💡 Email é obrigatório para contatos de trabalho</small>
           </div>
 
           <!-- Endereço -->
-          <div>
+          <div th:class="${#fields.hasErrors('endereco')} ? 'campo-erro' : ''">
             <label for="endereco">Endereço:</label>
             <textarea
               id="endereco"
               th:field="*{endereco}"
-              placeholder="Digite o endereço completo"
+              placeholder="Digite o endereço completo (máx. 500 caracteres)"
+              th:class="${#fields.hasErrors('endereco')} ? 'input-erro' : ''"
             ></textarea>
+            <span th:if="${#fields.hasErrors('endereco')}" class="erro-campo" 
+                  th:each="erro : ${#fields.errors('endereco')}" th:text="${erro}"></span>
           </div>
 
           <!-- Data de Nascimento -->
-          <div>
+          <div th:class="${#fields.hasErrors('dataNascimento')} ? 'campo-erro' : ''">
             <label for="dataNascimento">Data de Nascimento:</label>
             <input
               id="dataNascimento"
               th:field="*{dataNascimento}"
               type="date"
+              th:class="${#fields.hasErrors('dataNascimento')} ? 'input-erro' : ''"
             />
+            <span th:if="${#fields.hasErrors('dataNascimento')}" class="erro-campo" 
+                  th:each="erro : ${#fields.errors('dataNascimento')}" th:text="${erro}"></span>
+            <small class="ajuda">📅 Deve ser uma data no passado</small>
           </div>
 
           <!-- Categoria -->
-          <div>
+          <div th:class="${#fields.hasErrors('categoria')} ? 'campo-erro' : ''">
             <label for="categoria">Categoria:</label>
-            <select id="categoria" th:field="*{categoria}">
+            <select id="categoria" th:field="*{categoria}" 
+                    th:class="${#fields.hasErrors('categoria')} ? 'input-erro' : ''">
               <option
                 th:each="cat : ${categorias}"
                 th:value="${cat}"
@@ -109,6 +134,8 @@
                 th:selected="${contato.categoria == cat}"
               ></option>
             </select>
+            <span th:if="${#fields.hasErrors('categoria')}" class="erro-campo" 
+                  th:each="erro : ${#fields.errors('categoria')}" th:text="${erro}"></span>
           </div>
 
           <!-- Favorito -->

@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @Controller
 public class ContatosControle {
+
     private static final Logger logger = LoggerFactory.getLogger(ContatosControle.class);
 
     @Autowired
@@ -29,7 +30,7 @@ public class ContatosControle {
             @RequestParam(required = false) String categoria,
             @RequestParam(required = false) Boolean favorito) {
         logger.info("Listando contatos - Busca: {}, Categoria: {}, Favorito: {}", busca, categoria, favorito);
-        
+
         ModelAndView mv = new ModelAndView("listar");
 
         List<Contato> contatos;
@@ -76,7 +77,7 @@ public class ContatosControle {
     @PostMapping("/contatos")
     public ModelAndView salvar(@Valid Contato contato, BindingResult result) {
         logger.info("Tentativa de salvar novo contato: {}", contato.getNome());
-        
+
         ModelAndView mv = new ModelAndView("formulario");
 
         if (result.hasErrors()) {
@@ -95,14 +96,14 @@ public class ContatosControle {
             mv.addObject("erro", "Erro ao salvar contato: " + e.getMessage());
             mv.addObject("categorias", contatoService.obterCategorias());
         }
-        
+
         return mv;
     }
 
     @GetMapping("/contatos/{id}")
     public ModelAndView editar(@PathVariable Long id) {
         logger.info("Acessando formulário de edição para contato ID: {}", id);
-        
+
         ModelAndView mv = new ModelAndView("formulario");
 
         Optional<Contato> contatoOpt = contatoService.buscarPorId(id);
@@ -117,14 +118,14 @@ public class ContatosControle {
             mv.addObject("contato", new Contato());
             mv.addObject("categorias", contatoService.obterCategorias());
         }
-        
+
         return mv;
     }
 
     @PostMapping("/contatos/{id}")
     public String atualizar(@PathVariable Long id, @Valid Contato contato, BindingResult result) {
         logger.info("Tentativa de atualizar contato ID: {}", id);
-        
+
         if (result.hasErrors()) {
             logger.warn("Erros de validação na atualização: {}", result.getAllErrors());
             return "redirect:/contatos/" + id;
@@ -140,14 +141,14 @@ public class ContatosControle {
         } catch (Exception e) {
             logger.error("Erro ao atualizar contato ID {}: {}", id, e.getMessage(), e);
         }
-        
+
         return "redirect:/contatos";
     }
 
     @DeleteMapping("/contatos/{id}")
     public String remover(@PathVariable Long id) {
         logger.info("Tentativa de remover contato ID: {}", id);
-        
+
         try {
             boolean removido = contatoService.remover(id);
             if (removido) {
@@ -158,14 +159,14 @@ public class ContatosControle {
         } catch (Exception e) {
             logger.error("Erro ao remover contato ID {}: {}", id, e.getMessage(), e);
         }
-        
+
         return "redirect:/contatos";
     }
 
     @PostMapping("/contatos/{id}/favorito")
     public String alternarFavorito(@PathVariable Long id) {
         logger.info("Tentativa de alternar favorito para contato ID: {}", id);
-        
+
         try {
             Optional<Contato> contato = contatoService.alternarFavorito(id);
             if (contato.isPresent()) {
@@ -176,14 +177,14 @@ public class ContatosControle {
         } catch (Exception e) {
             logger.error("Erro ao alternar favorito do contato ID {}: {}", id, e.getMessage(), e);
         }
-        
+
         return "redirect:/contatos";
     }
 
     @GetMapping("/contatos/{id}/detalhes")
     public ModelAndView detalhes(@PathVariable Long id) {
         logger.info("Acessando detalhes do contato ID: {}", id);
-        
+
         ModelAndView mv = new ModelAndView("detalhes");
 
         Optional<Contato> contatoOpt = contatoService.buscarPorId(id);
@@ -201,15 +202,15 @@ public class ContatosControle {
     @GetMapping("/contatos/favoritos")
     public ModelAndView favoritos() {
         logger.info("Acessando lista de contatos favoritos");
-        
+
         ModelAndView mv = new ModelAndView("listar");
         List<Contato> favoritos = contatoService.buscarFavoritos();
-        
+
         mv.addObject("contatos", favoritos);
         mv.addObject("categorias", contatoService.obterCategorias());
         mv.addObject("mostrarFavoritos", true);
         mv.addObject("estatisticas", contatoService.obterEstatisticas());
-        
+
         logger.info("Retornando {} contatos favoritos", favoritos.size());
         return mv;
     }
@@ -217,7 +218,7 @@ public class ContatosControle {
     @GetMapping("/contatos/categoria/{categoria}")
     public ModelAndView porCategoria(@PathVariable String categoria) {
         logger.info("Acessando contatos por categoria: {}", categoria);
-        
+
         ModelAndView mv = new ModelAndView("listar");
 
         Categoria cat = Categoria.fromDescricao(categoria);

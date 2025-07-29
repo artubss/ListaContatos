@@ -32,8 +32,8 @@ public class Contato {
     private String nome;
 
     @NotBlank(message = "Telefone é obrigatório")
-    @Pattern(regexp = "^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[1-9])[0-9]{3}\\-?[0-9]{4}$", 
-             message = "Telefone deve estar no formato (11) 99999-9999 ou 11999999999")
+    @Pattern(regexp = "^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[1-9])[0-9]{3}\\-?[0-9]{4}$",
+            message = "Telefone deve estar no formato (11) 99999-9999 ou 11999999999")
     private String telefone;
 
     @Email(message = "Email deve ser válido")
