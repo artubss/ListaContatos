@@ -839,3 +839,134 @@ org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property o
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-07-29 14:25:22.400 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-29 14:25:22.890 [SpringApplicationShutdownHook] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-214]
+2025-07-29 14:25:22.892 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-07-29 14:25:22.930 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-07-29 14:25:31.331 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2025-07-29 14:25:31.383 [restartedMain] INFO  c.a.AlgaWorksContatosApplication - Starting AlgaWorksContatosApplication using Java 21.0.7 with PID 24868 (C:\Users\arthu\Downloads\algafood-api\target\classes started by arthu in C:\Users\arthu\Downloads\algafood-api)
+2025-07-29 14:25:31.384 [restartedMain] INFO  c.a.AlgaWorksContatosApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-29 14:25:31.455 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-07-29 14:25:31.455 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-07-29 14:25:32.398 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-29 14:25:32.485 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 78 ms. Found 1 JPA repository interfaces.
+2025-07-29 14:25:33.392 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 3000 (http)
+2025-07-29 14:25:33.408 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-3000"]
+2025-07-29 14:25:33.409 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-29 14:25:33.409 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2025-07-29 14:25:33.484 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-29 14:25:33.485 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2029 ms
+2025-07-29 14:25:33.535 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-07-29 14:25:33.837 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:contatosdb user=ARTUBSS
+2025-07-29 14:25:33.839 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-07-29 14:25:33.848 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:contatosdb'
+2025-07-29 14:25:33.978 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-29 14:25:34.061 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2025-07-29 14:25:34.065 [restartedMain] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-07-29 14:25:34.215 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-07-29 14:25:34.391 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-29 14:25:34.568 [restartedMain] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.H2Dialect, version: 2.1.214
+2025-07-29 14:25:34.899 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-07-29 14:25:36.004 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-07-29 14:25:36.125 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-29 14:25:36.153 [restartedMain] INFO  com.algaworks.ContatoService - ContatoService inicializado com 5 contatos mock
+2025-07-29 14:25:36.226 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-29 14:25:36.473 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-29 14:25:37.067 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-29 14:25:37.096 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-3000"]
+2025-07-29 14:25:37.138 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 3000 (http) with context path ''
+2025-07-29 14:25:37.149 [restartedMain] INFO  c.a.AlgaWorksContatosApplication - Started AlgaWorksContatosApplication in 6.457 seconds (process running for 7.526)
+2025-07-29 14:25:45.809 [http-nio-3000-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-29 14:25:45.810 [http-nio-3000-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-07-29 14:25:45.813 [http-nio-3000-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-07-29 14:25:45.885 [http-nio-3000-exec-1] INFO  com.algaworks.ContatosControle - Listando contatos - Busca: null, Categoria: null, Favorito: null
+2025-07-29 14:25:45.885 [http-nio-3000-exec-1] DEBUG com.algaworks.ContatoService - Buscando todos os contatos
+2025-07-29 14:25:45.886 [http-nio-3000-exec-1] INFO  com.algaworks.ContatoService - Retornando 5 contatos
+2025-07-29 14:25:45.886 [http-nio-3000-exec-1] DEBUG com.algaworks.ContatoService - Obtendo lista de categorias
+2025-07-29 14:25:45.886 [http-nio-3000-exec-1] DEBUG com.algaworks.ContatoService - Calculando estatísticas dos contatos
+2025-07-29 14:25:45.893 [http-nio-3000-exec-1] INFO  com.algaworks.ContatoService - Estatísticas calculadas - Total: 5, Favoritos: 3, Média de idade: 35.0
+2025-07-29 14:25:45.894 [http-nio-3000-exec-1] INFO  com.algaworks.ContatosControle - Retornando 5 contatos para listagem
+2025-07-29 14:26:15.574 [http-nio-3000-exec-4] INFO  com.algaworks.ContatosControle - Acessando formulário de novo contato
+2025-07-29 14:26:15.608 [http-nio-3000-exec-4] DEBUG com.algaworks.ContatoService - Obtendo lista de categorias
+2025-07-29 14:26:32.828 [http-nio-3000-exec-10] INFO  com.algaworks.ContatosControle - Tentativa de salvar novo contato: Arthur Bezerra de Souza
+2025-07-29 14:26:32.830 [http-nio-3000-exec-10] WARN  com.algaworks.ContatosControle - Erros de validação encontrados: [Field error in object 'contato' on field 'categoria': rejected value [🦷 Dentista]; codes [typeMismatch.contato.categoria,typeMismatch.categoria,typeMismatch.com.algaworks.Categoria,typeMismatch]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [contato.categoria,categoria]; arguments []; default message [categoria]]; default message [Failed to convert property value of type 'java.lang.String' to required type 'com.algaworks.Categoria' for property 'categoria'; Failed to convert from type [java.lang.String] to type [@jakarta.persistence.Enumerated com.algaworks.Categoria] for value [🦷 Dentista]]]
+2025-07-29 14:26:32.841 [http-nio-3000-exec-10] DEBUG com.algaworks.ContatoService - Obtendo lista de categorias
+2025-07-29 14:26:50.826 [http-nio-3000-exec-5] INFO  com.algaworks.ContatosControle - Tentativa de salvar novo contato: Arthur Bezerra de Souza
+2025-07-29 14:26:50.827 [http-nio-3000-exec-5] WARN  com.algaworks.ContatosControle - Erros de validação encontrados: [Field error in object 'contato' on field 'categoria': rejected value [🎓 Faculdade]; codes [typeMismatch.contato.categoria,typeMismatch.categoria,typeMismatch.com.algaworks.Categoria,typeMismatch]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [contato.categoria,categoria]; arguments []; default message [categoria]]; default message [Failed to convert property value of type 'java.lang.String' to required type 'com.algaworks.Categoria' for property 'categoria'; Failed to convert from type [java.lang.String] to type [@jakarta.persistence.Enumerated com.algaworks.Categoria] for value [🎓 Faculdade]]]
+2025-07-29 14:26:50.829 [http-nio-3000-exec-5] DEBUG com.algaworks.ContatoService - Obtendo lista de categorias
+2025-07-29 14:27:16.052 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 11 class path changes (0 additions, 10 deletions, 1 modification)
+2025-07-29 14:27:16.329 [Thread-6] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-3000"]
+2025-07-29 14:27:16.331 [Thread-6] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2025-07-29 14:27:16.391 [Thread-6] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2025-07-29 14:27:16.475 [Thread-6] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-3000"]
+2025-07-29 14:27:16.532 [Thread-6] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-3000"]
+2025-07-29 14:27:16.593 [Thread-6] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-29 14:27:17.261 [Thread-6] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-214]
+2025-07-29 14:27:17.263 [Thread-6] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-07-29 14:27:17.311 [Thread-6] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-07-29 14:27:18.331 [restartedMain] INFO  c.a.AlgaWorksContatosApplication - Starting AlgaWorksContatosApplication using Java 21.0.7 with PID 24868 (C:\Users\arthu\Downloads\algafood-api\target\classes started by arthu in C:\Users\arthu\Downloads\algafood-api)
+2025-07-29 14:27:18.334 [restartedMain] INFO  c.a.AlgaWorksContatosApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-29 14:27:23.084 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-29 14:27:23.143 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 55 ms. Found 1 JPA repository interfaces.
+2025-07-29 14:27:23.869 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 3000 (http)
+2025-07-29 14:27:23.870 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-3000"]
+2025-07-29 14:27:23.872 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-29 14:27:23.873 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2025-07-29 14:27:23.928 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-29 14:27:23.929 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5584 ms
+2025-07-29 14:27:23.965 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-07-29 14:27:23.978 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:contatosdb user=ARTUBSS
+2025-07-29 14:27:23.979 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-07-29 14:27:23.980 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:contatosdb'
+2025-07-29 14:27:24.062 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-29 14:27:24.089 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-07-29 14:27:24.092 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-29 14:27:24.100 [restartedMain] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.H2Dialect, version: 2.1.214
+2025-07-29 14:27:24.146 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-07-29 14:27:24.287 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-07-29 14:27:24.300 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-29 14:27:24.331 [restartedMain] INFO  com.algaworks.ContatoService - ContatoService inicializado com 5 contatos mock
+2025-07-29 14:27:24.407 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-29 14:27:24.529 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-29 14:27:24.806 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-29 14:27:24.827 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-3000"]
+2025-07-29 14:27:24.838 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 3000 (http) with context path ''
+2025-07-29 14:27:24.844 [restartedMain] INFO  c.a.AlgaWorksContatosApplication - Started AlgaWorksContatosApplication in 6.915 seconds (process running for 115.222)
+2025-07-29 14:27:24.848 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-07-29 14:27:25.438 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-29 14:27:25.863 [SpringApplicationShutdownHook] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-214]
+2025-07-29 14:27:25.865 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-07-29 14:27:26.019 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-07-29 14:27:37.906 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2025-07-29 14:27:37.970 [restartedMain] INFO  c.a.AlgaWorksContatosApplication - Starting AlgaWorksContatosApplication using Java 21.0.7 with PID 24184 (C:\Users\arthu\Downloads\algafood-api\target\classes started by arthu in C:\Users\arthu\Downloads\algafood-api)
+2025-07-29 14:27:37.971 [restartedMain] INFO  c.a.AlgaWorksContatosApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-29 14:27:38.031 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-07-29 14:27:38.032 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-07-29 14:27:39.294 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-29 14:27:39.417 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 110 ms. Found 1 JPA repository interfaces.
+2025-07-29 14:27:40.426 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 3000 (http)
+2025-07-29 14:27:40.440 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-3000"]
+2025-07-29 14:27:40.441 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-29 14:27:40.442 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2025-07-29 14:27:40.515 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-29 14:27:40.516 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2484 ms
+2025-07-29 14:27:40.555 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-07-29 14:27:40.864 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:contatosdb user=ARTUBSS
+2025-07-29 14:27:40.867 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-07-29 14:27:40.881 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:contatosdb'
+2025-07-29 14:27:41.078 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-29 14:27:41.187 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2025-07-29 14:27:41.190 [restartedMain] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-07-29 14:27:41.428 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-07-29 14:27:41.664 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-29 14:27:41.727 [restartedMain] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.H2Dialect, version: 2.1.214
+2025-07-29 14:27:42.010 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-07-29 14:27:43.244 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-07-29 14:27:43.396 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-29 14:27:43.443 [restartedMain] INFO  com.algaworks.ContatoService - ContatoService inicializado com 5 contatos mock
+2025-07-29 14:27:43.536 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-29 14:27:43.729 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-29 14:27:44.834 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-29 14:27:44.879 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-3000"]
+2025-07-29 14:27:44.967 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 3000 (http) with context path ''
+2025-07-29 14:27:44.990 [restartedMain] INFO  c.a.AlgaWorksContatosApplication - Started AlgaWorksContatosApplication in 7.939 seconds (process running for 9.188)

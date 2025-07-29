@@ -31,12 +31,12 @@
         <div class="estatisticas" th:if="${estatisticas}">
           <p>
             📊 Total:
-            <span th:text="${estatisticas.totalContatos}">0</span> contatos | ⭐
-            Favoritos:
-            <span th:text="${estatisticas.contatosFavoritos}">0</span> | 📈
+            <span th:text="${estatisticas['totalContatos']}">0</span> contatos |
+            ⭐ Favoritos:
+            <span th:text="${estatisticas['contatosFavoritos']}">0</span> | 📈
             Média de idade:
             <span
-              th:text="${#numbers.formatDecimal(estatisticas.mediaIdade, 1, 1)}"
+              th:text="${#numbers.formatDecimal(estatisticas['mediaIdade'], 1, 1)}"
               >0</span
             >
             anos
