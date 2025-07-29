@@ -3,9 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-
     <title>AlgaWorks</title>
-
     <link rel="stylesheet" th:href="@{/css/estilo.css}" />
   </head>
 
@@ -14,17 +12,48 @@
       <nav>
         <ul>
           <li><a th:href="@{/}"> AlgaWorks Contatos </a></li>
-
           <li><a th:href="@{/contatos}"> Listar </a></li>
-
           <li><a th:href="@{/contatos/novo}"> Novo </a></li>
+          <li><a th:href="@{/contatos/favoritos}"> ⭐ Favoritos </a></li>
         </ul>
       </nav>
     </header>
 
     <main>
       <section>
-        <h1>Lista contatos</h1>
+        <h1 th:text="${mostrarFavoritos != null ? 'Contatos Favoritos' : 'Lista de Contatos'}">Lista de Contatos</h1>
+        
+        <!-- Estatísticas -->
+        <div class="estatisticas" th:if="${estatisticas}">
+          <p>📊 Total: <span th:text="${estatisticas.totalContatos}">0</span> contatos | 
+             ⭐ Favoritos: <span th:text="${estatisticas.contatosFavoritos}">0</span> | 
+             📈 Média de idade: <span th:text="${#numbers.formatDecimal(estatisticas.mediaIdade, 1, 1)}">0</span> anos</p>
+        </div>
+      </section>
+
+      <!-- Barra de Busca e Filtros -->
+      <section class="filtros">
+        <form th:action="@{/contatos}" method="get" class="busca-form">
+          <div class="busca-container">
+            <input type="text" name="busca" th:value="${busca}" placeholder="Buscar por nome, telefone ou email..." />
+            <button type="submit">🔍 Buscar</button>
+            <a th:href="@{/contatos}" class="limpar">Limpar</a>
+          </div>
+        </form>
+        
+        <!-- Filtros por Categoria -->
+        <div class="categorias-filtro" th:if="${categorias}">
+          <h3>Filtrar por Categoria:</h3>
+          <div class="categoria-buttons">
+            <a th:href="@{/contatos}" class="categoria-btn" 
+               th:classappend="${categoriaSelecionada == null ? 'ativo' : ''}">Todos</a>
+            <a th:each="cat : ${categorias}" 
+               th:href="@{/contatos/categoria/{categoria}(categoria=${cat.descricao})}"
+               th:text="${cat.toString()}"
+               th:class="'categoria-btn' + (${categoriaSelecionada == cat ? ' ativo' : ''})"
+               class="categoria-btn"></a>
+          </div>
+        </div>
       </section>
 
       <section>
@@ -33,35 +62,55 @@
             <tr>
               <th>Nome</th>
               <th>Telefone</th>
-              <th>#</th>
-              <th>#</th>
+              <th>Email</th>
+              <th>Categoria</th>
+              <th>Idade</th>
+              <th>Ações</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr th:each="contato: ${contatos}">
-              <td th:text="${contato.nome}"></td>
-
-              <td th:text="${contato.telefone}"></td>
-
+            <tr th:each="contato : ${contatos}" th:class="${contato.favorito ? 'favorito' : ''}">
               <td>
-                <a th:href="@{/contatos/{contato}(contato=${contato.id})}"
-                  >Editar</a
-                >
+                <span th:text="${contato.nome}"></span>
+                <span th:if="${contato.favorito}" class="favorito-icon">⭐</span>
               </td>
-
+              <td th:text="${contato.telefone}"></td>
+              <td th:text="${contato.email != null ? contato.email : '-'}"></td>
               <td>
-                <form
-                  th:action="@{/contatos/{contato}(contato=${contato.id})}"
-                  th:method="delete"
-                  onsubmit="return confirm('Tem certeza que deseja remover este contato?');"
-                >
-                  <button type="submit">Remover</button>
+                <span th:text="${contato.categoria.toString()}" 
+                      th:class="'categoria-' + ${contato.categoria.name().toLowerCase()}"></span>
+              </td>
+              <td th:text="${contato.idade > 0 ? contato.idade + ' anos' : '-'}"></td>
+              <td class="acoes">
+                <a th:href="@{/contatos/{id}(id=${contato.id})}" class="btn-editar">✏️ Editar</a>
+                
+                <form th:action="@{/contatos/{id}/favorito(id=${contato.id})}" 
+                      th:method="post" style="display: inline;">
+                  <button type="submit" th:class="${contato.favorito ? 'btn-favorito-remover' : 'btn-favorito-adicionar'}"
+                          th:title="${contato.favorito ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}">
+                    <span th:text="${contato.favorito ? '💔' : '❤️'}"></span>
+                  </button>
+                </form>
+                
+                <a th:href="@{/contatos/{id}/detalhes(id=${contato.id})}" class="btn-detalhes">👁️ Detalhes</a>
+                
+                <form th:action="@{/contatos/{id}(id=${contato.id})}" 
+                      th:method="delete" 
+                      onsubmit="return confirm('Tem certeza que deseja remover este contato?');"
+                      style="display: inline;">
+                  <button type="submit" class="btn-remover">🗑️ Remover</button>
                 </form>
               </td>
             </tr>
           </tbody>
         </table>
+        
+        <!-- Mensagem quando não há contatos -->
+        <div th:if="${#lists.isEmpty(contatos)}" class="sem-contatos">
+          <p>📭 Nenhum contato encontrado.</p>
+          <a th:href="@{/contatos/novo}" class="btn-novo">➕ Adicionar Primeiro Contato</a>
+        </div>
       </section>
     </main>
   </body>
