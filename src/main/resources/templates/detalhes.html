@@ -21,84 +21,110 @@
     <main>
       <section>
         <h1>Detalhes do Contato</h1>
-        
+
         <div th:if="${contato != null}" class="detalhes-contato">
           <!-- Cabeçalho com nome e favorito -->
           <div class="contato-header">
             <h2 th:text="${contato.nome}">Nome do Contato</h2>
-            <span th:if="${contato.favorito}" class="favorito-badge">⭐ Favorito</span>
+            <span th:if="${contato.favorito}" class="favorito-badge"
+              >⭐ Favorito</span
+            >
           </div>
-          
+
           <!-- Informações principais -->
           <div class="info-principal">
             <div class="info-item">
               <strong>📞 Telefone:</strong>
               <span th:text="${contato.telefone}">Telefone</span>
             </div>
-            
+
             <div class="info-item" th:if="${contato.email != null}">
               <strong>📧 Email:</strong>
               <span th:text="${contato.email}">Email</span>
             </div>
-            
+
             <div class="info-item" th:if="${contato.endereco != null}">
               <strong>📍 Endereço:</strong>
               <span th:text="${contato.endereco}">Endereço</span>
             </div>
-            
+
             <div class="info-item">
               <strong>🏷️ Categoria:</strong>
-              <span th:text="${contato.categoria.toString()}" 
-                    th:class="'categoria-' + ${contato.categoria.name().toLowerCase()}">
+              <span
+                th:text="${contato.categoria.toString()}"
+                th:class="'categoria-' + ${contato.categoria.name().toLowerCase()}"
+              >
                 Categoria
               </span>
             </div>
           </div>
-          
+
           <!-- Informações adicionais -->
           <div class="info-adicional">
             <div class="info-item" th:if="${contato.dataNascimento != null}">
               <strong>🎂 Data de Nascimento:</strong>
               <span th:text="${contato.dataNascimentoFormatada}">Data</span>
-              <span th:if="${contato.idade > 0}" th:text="'(' + ${contato.idade} + ' anos)'"></span>
+              <span
+                th:if="${contato.idade > 0}"
+                th:text="'(' + ${contato.idade} + ' anos)'"
+              ></span>
             </div>
-            
+
             <div class="info-item">
               <strong>📅 Criado em:</strong>
-              <span th:text="${contato.dataCriacaoFormatada}">Data de criação</span>
+              <span th:text="${contato.dataCriacaoFormatada}"
+                >Data de criação</span
+              >
             </div>
-            
-            <div class="info-item" th:if="${contato.dataAtualizacao != contato.dataCriacao}">
+
+            <div
+              class="info-item"
+              th:if="${contato.dataAtualizacao != contato.dataCriacao}"
+            >
               <strong>🔄 Última atualização:</strong>
-              <span th:text="${contato.dataAtualizacaoFormatada}">Data de atualização</span>
+              <span th:text="${contato.dataAtualizacaoFormatada}"
+                >Data de atualização</span
+              >
             </div>
           </div>
-          
+
           <!-- Ações -->
           <div class="acoes-detalhes">
             <a th:href="@{/contatos/{id}(id=${contato.id})}" class="btn-editar">
               ✏️ Editar Contato
             </a>
-            
-            <form th:action="@{/contatos/{id}/favorito(id=${contato.id})}" 
-                  th:method="post" style="display: inline;">
-              <button type="submit" th:class="${contato.favorito ? 'btn-favorito-remover' : 'btn-favorito-adicionar'}"
-                      th:title="${contato.favorito ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}">
-                <span th:text="${contato.favorito ? '💔 Remover dos Favoritos' : '❤️ Adicionar aos Favoritos'}"></span>
+
+            <form
+              th:action="@{/contatos/{id}/favorito(id=${contato.id})}"
+              th:method="post"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                th:class="${contato.favorito ? 'btn-favorito-remover' : 'btn-favorito-adicionar'}"
+                th:title="${contato.favorito ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}"
+              >
+                <span
+                  th:text="${contato.favorito ? '💔 Remover dos Favoritos' : '❤️ Adicionar aos Favoritos'}"
+                ></span>
               </button>
             </form>
-            
-            <form th:action="@{/contatos/{id}(id=${contato.id})}" 
-                  th:method="delete" 
-                  onsubmit="return confirm('Tem certeza que deseja remover este contato?');"
-                  style="display: inline;">
-              <button type="submit" class="btn-remover">🗑️ Remover Contato</button>
+
+            <form
+              th:action="@{/contatos/{id}(id=${contato.id})}"
+              th:method="delete"
+              onsubmit="return confirm('Tem certeza que deseja remover este contato?');"
+              style="display: inline"
+            >
+              <button type="submit" class="btn-remover">
+                🗑️ Remover Contato
+              </button>
             </form>
-            
+
             <a th:href="@{/contatos}" class="btn-voltar">⬅️ Voltar à Lista</a>
           </div>
         </div>
-        
+
         <!-- Mensagem quando contato não encontrado -->
         <div th:if="${contato == null}" class="contato-nao-encontrado">
           <p>❌ Contato não encontrado.</p>
