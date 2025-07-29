@@ -1,34 +1,19 @@
 package com.algaworks;
 
-import java.util.ArrayList;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import jakarta.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ContatosControle {
 
-    private static final ArrayList<Contato> LISTA_CONTATOS = new ArrayList<>();
-
-    static {
-        LISTA_CONTATOS.add(new Contato(1L, "João da Silva", "1199999-9999"));
-        LISTA_CONTATOS.add(new Contato(2L, "Maria Oliveira", "1299999-9999"));
-        LISTA_CONTATOS.add(new Contato(3L, "Pedro Santos", "1399999-9999"));
-        LISTA_CONTATOS.add(new Contato(4L, "Ana Souza", "1499999-9999"));
-        LISTA_CONTATOS.add(new Contato(5L, "Carlos Oliveira", "1599999-9999"));
-        LISTA_CONTATOS.add(new Contato(6L, "Rafaela Santos", "1699999-9999"));
-        LISTA_CONTATOS.add(new Contato(7L, "Lucas Oliveira", "1799999-9999"));
-        LISTA_CONTATOS.add(new Contato(8L, "Rafaela Santos", "1899999-9999"));
-        LISTA_CONTATOS.add(new Contato(9L, "Lucas Oliveira", "1999999-9999"));
-
-    }
+    @Autowired
+    private ContatoService contatoService;
 
     @GetMapping("/")
     public String index() {
@@ -36,9 +21,35 @@ public class ContatosControle {
     }
 
     @GetMapping("/contatos")
-    public ModelAndView listar() {
+    public ModelAndView listar(@RequestParam(required = false) String busca,
+                               @RequestParam(required = false) String categoria,
+                               @RequestParam(required = false) Boolean favorito) {
         ModelAndView mv = new ModelAndView("listar");
-        mv.addObject("contatos", LISTA_CONTATOS);
+        
+        List<Contato> contatos;
+        
+        if (busca != null && !busca.trim().isEmpty()) {
+            // Busca por texto
+            contatos = contatoService.buscarPorTexto(busca);
+            mv.addObject("busca", busca);
+        } else if (categoria != null && !categoria.trim().isEmpty()) {
+            // Busca por categoria
+            Categoria cat = Categoria.fromDescricao(categoria);
+            contatos = contatoService.buscarPorCategoria(cat);
+            mv.addObject("categoriaSelecionada", cat);
+        } else if (favorito != null && favorito) {
+            // Busca favoritos
+            contatos = contatoService.buscarFavoritos();
+            mv.addObject("mostrarFavoritos", true);
+        } else {
+            // Lista todos
+            contatos = contatoService.buscarTodos();
+        }
+        
+        mv.addObject("contatos", contatos);
+        mv.addObject("categorias", contatoService.obterCategorias());
+        mv.addObject("estatisticas", contatoService.obterEstatisticas());
+        
         return mv;
     }
 
@@ -46,27 +57,21 @@ public class ContatosControle {
     public ModelAndView novo() {
         ModelAndView mv = new ModelAndView("formulario");
         mv.addObject("contato", new Contato());
+        mv.addObject("categorias", contatoService.obterCategorias());
         return mv;
     }
 
     @PostMapping("/contatos")
     public ModelAndView salvar(@Valid Contato contato, BindingResult result) {
         ModelAndView mv = new ModelAndView("formulario");
+        
         if (result.hasErrors()) {
             mv.addObject("erros", result.getAllErrors());
+            mv.addObject("categorias", contatoService.obterCategorias());
             return mv;
         }
-
-        // Assign ID to new contact
-        if (contato.getId() == null) {
-            Long nextId = LISTA_CONTATOS.stream()
-                    .mapToLong(Contato::getId)
-                    .max()
-                    .orElse(0L) + 1L;
-            contato.setId(nextId);
-        }
-
-        LISTA_CONTATOS.add(contato);
+        
+        contatoService.salvar(contato);
         mv.setViewName("redirect:/contatos");
         return mv;
     }
@@ -74,43 +79,69 @@ public class ContatosControle {
     @GetMapping("/contatos/{id}")
     public ModelAndView editar(@PathVariable Long id) {
         ModelAndView mv = new ModelAndView("formulario");
-        mv.addObject("contato",
-                LISTA_CONTATOS.stream()
-                        .filter(c -> c.getId().equals(id))
-                        .findFirst()
-                        .orElse(new Contato()));
+        
+        Optional<Contato> contatoOpt = contatoService.buscarPorId(id);
+        Contato contato = contatoOpt.orElse(new Contato());
+        
+        mv.addObject("contato", contato);
+        mv.addObject("categorias", contatoService.obterCategorias());
         return mv;
     }
 
     @PostMapping("/contatos/{id}")
-    public String atualizar(Contato contato) {
-        Integer index = null;
-        for (int i = 0; i < LISTA_CONTATOS.size(); i++) {
-            if (LISTA_CONTATOS.get(i).getId().equals(contato.getId())) {
-                index = i;
-                break;
-            }
+    public String atualizar(@PathVariable Long id, @Valid Contato contato, BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/contatos/" + id;
         }
-        if (index != null) {
-            LISTA_CONTATOS.set(index, contato);
-        }
+        
+        contatoService.atualizar(id, contato);
         return "redirect:/contatos";
     }
 
     @DeleteMapping("/contatos/{id}")
     public String remover(@PathVariable Long id) {
-        LISTA_CONTATOS.removeIf(c -> c.getId().equals(id));
+        contatoService.remover(id);
+        return "redirect:/contatos";
+    }
+
+    @PostMapping("/contatos/{id}/favorito")
+    public String alternarFavorito(@PathVariable Long id) {
+        contatoService.alternarFavorito(id);
         return "redirect:/contatos";
     }
 
     @GetMapping("/contatos/{id}/detalhes")
     public ModelAndView detalhes(@PathVariable Long id) {
         ModelAndView mv = new ModelAndView("detalhes");
+        
+        Optional<Contato> contatoOpt = contatoService.buscarPorId(id);
+        mv.addObject("contato", contatoOpt.orElse(null));
+        
+        return mv;
+    }
 
-        mv.addObject("contato", LISTA_CONTATOS.stream()
-                .filter(c -> c.getId().equals(id))
-                .findFirst()
-                .orElse(null));
+    @GetMapping("/contatos/favoritos")
+    public ModelAndView favoritos() {
+        ModelAndView mv = new ModelAndView("listar");
+        mv.addObject("contatos", contatoService.buscarFavoritos());
+        mv.addObject("categorias", contatoService.obterCategorias());
+        mv.addObject("mostrarFavoritos", true);
+        mv.addObject("estatisticas", contatoService.obterEstatisticas());
+        return mv;
+    }
+
+    @GetMapping("/contatos/categoria/{categoria}")
+    public ModelAndView porCategoria(@PathVariable String categoria) {
+        ModelAndView mv = new ModelAndView("listar");
+        
+        Categoria cat = Categoria.fromDescricao(categoria);
+        List<Contato> contatos = contatoService.buscarPorCategoria(cat);
+        
+        mv.addObject("contatos", contatos);
+        mv.addObject("categorias", contatoService.obterCategorias());
+        mv.addObject("categoriaSelecionada", cat);
+        mv.addObject("estatisticas", contatoService.obterEstatisticas());
+        
         return mv;
     }
 }

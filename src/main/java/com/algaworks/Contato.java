@@ -20,30 +20,30 @@ public class Contato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @NotBlank(message = "Nome é obrigatório")
     private String nome;
-    
+
     @NotBlank(message = "Telefone é obrigatório")
     private String telefone;
-    
+
     @Email(message = "Email deve ser válido")
     private String email;
-    
+
     private String endereco;
-    
+
     @Past(message = "Data de nascimento deve ser no passado")
     private LocalDate dataNascimento;
-    
+
     @Enumerated(EnumType.STRING)
     private Categoria categoria = Categoria.OUTROS;
-    
+
     private boolean favorito = false;
-    
+
     private LocalDateTime dataCriacao;
-    
+
     private LocalDateTime dataAtualizacao;
-    
+
     private boolean novo;
 
     // Construtor padrão
@@ -60,10 +60,10 @@ public class Contato {
         this.telefone = telefone;
         this.novo = true;
     }
-    
+
     // Construtor completo
-    public Contato(Long id, String nome, String telefone, String email, 
-                   String endereco, LocalDate dataNascimento, Categoria categoria, boolean favorito) {
+    public Contato(Long id, String nome, String telefone, String email,
+            String endereco, LocalDate dataNascimento, Categoria categoria, boolean favorito) {
         this(id, nome, telefone);
         this.email = email;
         this.endereco = endereco;
@@ -76,104 +76,148 @@ public class Contato {
     public boolean isNovo() {
         return id == null;
     }
-    
+
     public String getNomeCompleto() {
         return nome;
     }
-    
+
     public String getDataNascimentoFormatada() {
-        return dataNascimento != null ? 
-               dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "";
+        return dataNascimento != null
+                ? dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "";
     }
-    
+
     public String getDataCriacaoFormatada() {
-        return dataCriacao != null ? 
-               dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "";
+        return dataCriacao != null
+                ? dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "";
     }
-    
+
     public String getDataAtualizacaoFormatada() {
-        return dataAtualizacao != null ? 
-               dataAtualizacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "";
+        return dataAtualizacao != null
+                ? dataAtualizacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "";
     }
-    
+
     public int getIdade() {
-        if (dataNascimento == null) return 0;
+        if (dataNascimento == null) {
+            return 0;
+        }
         return LocalDate.now().getYear() - dataNascimento.getYear();
     }
-    
+
     public void marcarComoFavorito() {
         this.favorito = true;
         this.dataAtualizacao = LocalDateTime.now();
     }
-    
+
     public void desmarcarComoFavorito() {
         this.favorito = false;
         this.dataAtualizacao = LocalDateTime.now();
     }
-    
+
     public void atualizarDataModificacao() {
         this.dataAtualizacao = LocalDateTime.now();
     }
 
     // Getters e Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getNome() { return nome; }
-    public void setNome(String nome) { 
-        this.nome = nome; 
-        atualizarDataModificacao();
+    public Long getId() {
+        return id;
     }
 
-    public String getTelefone() { return telefone; }
-    public void setTelefone(String telefone) { 
-        this.telefone = telefone; 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
         atualizarDataModificacao();
     }
-    
-    public String getEmail() { return email; }
-    public void setEmail(String email) { 
-        this.email = email; 
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
         atualizarDataModificacao();
     }
-    
-    public String getEndereco() { return endereco; }
-    public void setEndereco(String endereco) { 
-        this.endereco = endereco; 
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
         atualizarDataModificacao();
     }
-    
-    public LocalDate getDataNascimento() { return dataNascimento; }
-    public void setDataNascimento(LocalDate dataNascimento) { 
-        this.dataNascimento = dataNascimento; 
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
         atualizarDataModificacao();
     }
-    
-    public Categoria getCategoria() { return categoria; }
-    public void setCategoria(Categoria categoria) { 
-        this.categoria = categoria != null ? categoria : Categoria.OUTROS; 
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
         atualizarDataModificacao();
     }
-    
-    public boolean isFavorito() { return favorito; }
-    public void setFavorito(boolean favorito) { 
-        this.favorito = favorito; 
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria != null ? categoria : Categoria.OUTROS;
         atualizarDataModificacao();
     }
-    
-    public LocalDateTime getDataCriacao() { return dataCriacao; }
-    public void setDataCriacao(LocalDateTime dataCriacao) { this.dataCriacao = dataCriacao; }
-    
-    public LocalDateTime getDataAtualizacao() { return dataAtualizacao; }
-    public void setDataAtualizacao(LocalDateTime dataAtualizacao) { this.dataAtualizacao = dataAtualizacao; }
-    
-    public void setNovo(boolean novo) { this.novo = novo; }
+
+    public boolean isFavorito() {
+        return favorito;
+    }
+
+    public void setFavorito(boolean favorito) {
+        this.favorito = favorito;
+        atualizarDataModificacao();
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public LocalDateTime getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public void setNovo(boolean novo) {
+        this.novo = novo;
+    }
 
     // equals e hashCode
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Contato contato = (Contato) o;
         return Objects.equals(id, contato.id);
     }
@@ -185,13 +229,13 @@ public class Contato {
 
     @Override
     public String toString() {
-        return "Contato{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", email='" + email + '\'' +
-                ", categoria=" + categoria +
-                ", favorito=" + favorito +
-                '}';
+        return "Contato{"
+                + "id=" + id
+                + ", nome='" + nome + '\''
+                + ", telefone='" + telefone + '\''
+                + ", email='" + email + '\''
+                + ", categoria=" + categoria
+                + ", favorito=" + favorito
+                + '}';
     }
 }
