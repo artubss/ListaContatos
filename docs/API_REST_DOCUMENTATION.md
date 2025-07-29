@@ -30,6 +30,7 @@ Todas as respostas seguem o formato padrão:
 **GET** `/api/contatos`
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
   "success": true,
@@ -57,9 +58,11 @@ Todas as respostas seguem o formato padrão:
 **GET** `/api/contatos/{id}`
 
 **Parâmetros:**
+
 - `id` (Long): ID do contato
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
   "success": true,
@@ -81,6 +84,7 @@ Todas as respostas seguem o formato padrão:
 ```
 
 **Resposta de Erro (404):**
+
 ```json
 {
   "success": false,
@@ -95,6 +99,7 @@ Todas as respostas seguem o formato padrão:
 **POST** `/api/contatos`
 
 **Corpo da Requisição:**
+
 ```json
 {
   "nome": "Maria Santos",
@@ -108,6 +113,7 @@ Todas as respostas seguem o formato padrão:
 ```
 
 **Resposta de Sucesso (201):**
+
 ```json
 {
   "success": true,
@@ -129,6 +135,7 @@ Todas as respostas seguem o formato padrão:
 ```
 
 **Resposta de Erro (400):**
+
 ```json
 {
   "success": false,
@@ -143,9 +150,11 @@ Todas as respostas seguem o formato padrão:
 **PUT** `/api/contatos/{id}`
 
 **Parâmetros:**
+
 - `id` (Long): ID do contato
 
 **Corpo da Requisição:**
+
 ```json
 {
   "nome": "João Silva Atualizado",
@@ -159,6 +168,7 @@ Todas as respostas seguem o formato padrão:
 ```
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
   "success": true,
@@ -184,9 +194,11 @@ Todas as respostas seguem o formato padrão:
 **DELETE** `/api/contatos/{id}`
 
 **Parâmetros:**
+
 - `id` (Long): ID do contato
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
   "success": true,
@@ -201,9 +213,11 @@ Todas as respostas seguem o formato padrão:
 **POST** `/api/contatos/{id}/favorito`
 
 **Parâmetros:**
+
 - `id` (Long): ID do contato
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
   "success": true,
@@ -222,9 +236,11 @@ Todas as respostas seguem o formato padrão:
 **GET** `/api/contatos/busca?q={texto}`
 
 **Parâmetros:**
+
 - `q` (String): Texto para busca (nome, telefone, email, endereço)
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
   "success": true,
@@ -246,6 +262,7 @@ Todas as respostas seguem o formato padrão:
 **GET** `/api/contatos/favoritos`
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
   "success": true,
@@ -266,9 +283,11 @@ Todas as respostas seguem o formato padrão:
 **GET** `/api/contatos/categoria/{categoria}`
 
 **Parâmetros:**
+
 - `categoria` (String): Nome da categoria (FAMILIA, TRABALHO, AMIGOS, etc.)
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
   "success": true,
@@ -289,6 +308,7 @@ Todas as respostas seguem o formato padrão:
 **GET** `/api/contatos/estatisticas`
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
   "success": true,
@@ -313,6 +333,7 @@ Todas as respostas seguem o formato padrão:
 **GET** `/api/categorias`
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
   "success": true,
@@ -338,6 +359,7 @@ Todas as respostas seguem o formato padrão:
 **POST** `/api/contatos/filtros`
 
 **Corpo da Requisição:**
+
 ```json
 {
   "nome": "João",
@@ -349,6 +371,7 @@ Todas as respostas seguem o formato padrão:
 ```
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
   "success": true,
@@ -377,10 +400,12 @@ Todas as respostas seguem o formato padrão:
 ## Validações
 
 ### Campos Obrigatórios
+
 - `nome`: String (2-100 caracteres, apenas letras e espaços)
 - `telefone`: String (formato brasileiro: (11) 99999-9999)
 
 ### Campos Opcionais
+
 - `email`: String (formato de email válido, máximo 255 caracteres)
 - `endereco`: String (máximo 500 caracteres)
 - `dataNascimento`: Date (deve ser no passado, máximo 150 anos atrás)
@@ -388,6 +413,7 @@ Todas as respostas seguem o formato padrão:
 - `favorito`: Boolean
 
 ### Validações Especiais
+
 - Email é obrigatório para contatos de trabalho
 - Telefone deve ter pelo menos 10 dígitos
 - Data de nascimento deve ser razoável (não mais de 150 anos atrás)
@@ -395,6 +421,7 @@ Todas as respostas seguem o formato padrão:
 ## Exemplos de Uso
 
 ### Criar um novo contato
+
 ```bash
 curl -X POST http://localhost:3000/api/contatos \
   -H "Content-Type: application/json" \
@@ -408,16 +435,19 @@ curl -X POST http://localhost:3000/api/contatos \
 ```
 
 ### Buscar contatos por texto
+
 ```bash
 curl "http://localhost:3000/api/contatos/busca?q=João"
 ```
 
 ### Alternar favorito
+
 ```bash
 curl -X POST http://localhost:3000/api/contatos/1/favorito
 ```
 
 ### Obter estatísticas
+
 ```bash
 curl http://localhost:3000/api/contatos/estatisticas
 ```
@@ -425,12 +455,14 @@ curl http://localhost:3000/api/contatos/estatisticas
 ## Logs
 
 A API registra logs detalhados de todas as operações:
+
 - Logs de INFO para operações principais
 - Logs de DEBUG para detalhes de execução
 - Logs de WARN para situações de atenção
 - Logs de ERROR para erros e exceções
 
 Os logs são salvos em arquivos separados:
+
 - `logs/algafood-api.log`: Logs gerais
 - `logs/api.log`: Logs específicos da API
 - `logs/error.log`: Logs de erro
