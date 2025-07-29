@@ -45,11 +45,28 @@ public enum Categoria {
             return OUTROS;
         }
 
+        // Remove emojis e espaços extras
+        String textoLimpo = descricao.replaceAll("[\\p{So}]", "").trim();
+        
+        if (textoLimpo.isEmpty()) {
+            return OUTROS;
+        }
+
+        // Primeiro tenta fazer match exato (case-insensitive)
         for (Categoria categoria : values()) {
-            if (categoria.descricao.equalsIgnoreCase(descricao)) {
+            if (categoria.descricao.equalsIgnoreCase(textoLimpo)) {
                 return categoria;
             }
         }
+
+        // Se não encontrar, tenta fazer match parcial
+        for (Categoria categoria : values()) {
+            if (categoria.descricao.toLowerCase().contains(textoLimpo.toLowerCase()) ||
+                textoLimpo.toLowerCase().contains(categoria.descricao.toLowerCase())) {
+                return categoria;
+            }
+        }
+
         return OUTROS;
     }
 }
